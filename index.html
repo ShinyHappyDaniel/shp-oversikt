@@ -17,10 +17,11 @@
   --header-bg: #7D2D49;
   --pink: #FD89B3;
   --text: #FFFFFF;
-  --muted: #6F6E6E;
-  /* Face2Face använder --muted till korta etiketter. Noteringarna här är
-     långa stycken, och #6F6E6E blir för svagt mot #1B1318 i löptext. */
-  --muted-text: #9C9799;
+  /* Face2Face sätter --muted till #6F6E6E, men det ger bara 3.3:1 mot korten,
+     under kravet 4.5. Där används färgen till korta Kanban-etiketter, här till
+     11px avtalsdata och långa noteringar. Ljusare värden, samma karaktär. */
+  --muted: #B4AFB2;       /* 7.7:1 mot kort, etiketter och metadata */
+  --muted-text: #C4BFC1;  /* 9.2:1 mot kort, löptext */
   --gron: #5DCA8A;
   --gul:  #F0A050;
   --rod:  #F07070;
@@ -29,7 +30,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: var(--bg-primary); color: var(--text);
-  font-family: 'Red Hat Text', sans-serif; font-size: 14px; line-height: 1.5;
+  font-family: 'Red Hat Text', sans-serif; font-size: 15px; line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 .app { max-width: 1400px; margin: 0 auto; padding: 20px 20px 80px; }
@@ -43,11 +44,11 @@ body {
   padding: 5px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;
 }
 .header-main {
-  font-family: 'Red Hat Mono', monospace; font-size: 30px; font-weight: 300;
+  font-family: 'Red Hat Mono', monospace; font-size: 30px; font-weight: 400;
   letter-spacing: 4px; text-transform: uppercase; margin-bottom: 2px;
 }
 .header-sub {
-  font-family: 'Red Hat Display', sans-serif; font-size: 16px; font-weight: 400;
+  font-family: 'Red Hat Display', sans-serif; font-size: 17px; font-weight: 400;
   color: var(--muted); margin-bottom: 14px;
 }
 
@@ -66,19 +67,19 @@ body {
 /* ===== SEKTION ===== */
 .sektion { margin-bottom: 40px; }
 .sektion-rubrik {
-  font-family: 'Red Hat Mono', monospace; font-size: 10px; color: var(--muted);
-  margin-bottom: 14px; text-transform: uppercase; letter-spacing: .5px;
-  padding-bottom: 10px; border-bottom: 1px solid var(--border);
+  font-family: 'Red Hat Mono', monospace; font-size: 12px; font-weight: 500;
+  color: var(--muted); margin-bottom: 16px; text-transform: uppercase;
+  letter-spacing: 1px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
 }
 .sektion-rubrik b { color: var(--pink); font-weight: 600; }
 
 /* ===== KPI ===== */
 .kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 40px; }
 .kpi > div { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 16px 18px; }
-.kpi .tal { font-family: 'Red Hat Mono', monospace; font-size: 26px; font-weight: 300; line-height: 1.15; }
+.kpi .tal { font-family: 'Red Hat Mono', monospace; font-size: 28px; font-weight: 400; line-height: 1.15; }
 .kpi .etikett {
-  font-family: 'Red Hat Mono', monospace; font-size: 10px; color: var(--muted);
-  text-transform: uppercase; letter-spacing: .5px; margin-top: 8px;
+  font-family: 'Red Hat Mono', monospace; font-size: 11.5px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .5px; margin-top: 8px; line-height: 1.5;
 }
 
 /* ===== KORT ===== */
@@ -94,19 +95,19 @@ body {
 .kort.niva-gron { border-left-color: var(--gron); }
 .kort.niva-bla  { border-left-color: var(--bla); }
 .kort-topp { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; justify-content: space-between; }
-.kort h3 { font-size: 15px; font-weight: 500; line-height: 1.35; }
+.kort h3 { font-size: 17px; font-weight: 500; line-height: 1.35; }
 .meta {
-  font-family: 'Red Hat Mono', monospace; font-size: 11px; letter-spacing: .3px;
-  color: var(--muted); margin-top: 8px; line-height: 1.7;
+  font-family: 'Red Hat Mono', monospace; font-size: 12.5px; letter-spacing: 0;
+  color: var(--muted); margin-top: 10px; line-height: 1.85;
 }
 .meta b { color: var(--text); font-weight: 400; }
-.notering { color: var(--muted-text); font-size: 13px; margin-top: 12px; }
+.notering { color: var(--muted-text); font-size: 14.5px; line-height: 1.65; margin-top: 12px; }
 .notering b { color: var(--gul); }
 
 /* ===== BADGE ===== */
 .badge {
-  font-family: 'Red Hat Mono', monospace; font-size: 10px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: .5px; padding: 3px 9px;
+  font-family: 'Red Hat Mono', monospace; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .5px; padding: 4px 10px;
   border-radius: 20px; border: 1px solid var(--border); white-space: nowrap;
 }
 .b-gron { border-color: var(--gron); color: var(--gron); background: rgba(93,202,138,.12); }
@@ -119,10 +120,10 @@ body {
 .ratt { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
 .ratt > div { background: var(--bg-primary); border: 1px solid var(--border); border-radius: 5px; padding: 12px 14px; }
 .ratt .r-etikett {
-  font-family: 'Red Hat Mono', monospace; font-size: 9.5px; text-transform: uppercase;
-  letter-spacing: .5px; color: var(--pink); margin-bottom: 6px;
+  font-family: 'Red Hat Mono', monospace; font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .5px; color: var(--pink); margin-bottom: 7px;
 }
-.ratt .r-varde { font-size: 13.5px; font-weight: 500; line-height: 1.4; }
+.ratt .r-varde { font-size: 15px; font-weight: 500; line-height: 1.45; }
 
 /* ===== ÅTGÄRD ===== */
 .atgard {
@@ -130,23 +131,23 @@ body {
   border-left: 3px solid var(--rod); border-radius: 6px; padding: 16px 18px;
 }
 .atgard.mild { border-left-color: var(--gul); }
-.atgard h3 { font-size: 14px; font-weight: 500; }
-.atgard p { color: var(--muted-text); font-size: 13px; margin-top: 6px; }
+.atgard h3 { font-size: 16px; font-weight: 500; }
+.atgard p { color: var(--muted-text); font-size: 14.5px; line-height: 1.6; margin-top: 8px; }
 
 /* ===== LÄNKAR ===== */
 .lankar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .lankar a {
-  font-family: 'Red Hat Mono', monospace; font-size: 10px; font-weight: 600;
+  font-family: 'Red Hat Mono', monospace; font-size: 11.5px; font-weight: 600;
   text-transform: uppercase; letter-spacing: .5px; text-decoration: none;
   color: var(--muted); border: 1px solid var(--border); border-radius: 20px;
-  padding: 5px 12px; transition: all .15s;
+  padding: 6px 14px; transition: all .15s;
 }
 .lankar a:hover { color: var(--pink); border-color: var(--pink); }
 
 .tom { color: var(--muted); font-style: italic; padding: 8px 0; }
 footer {
   margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border);
-  color: var(--muted); font-size: 12px;
+  color: var(--muted); font-size: 13px; line-height: 1.7;
 }
 footer code { font-family: 'Red Hat Mono', monospace; font-size: 11px; }
 
