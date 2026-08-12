@@ -119,7 +119,10 @@ def bygg_data() -> dict:
             post = dict(d)
             post["villkor"] = bedom_villkor(d["notering"])
             post["konflikt"], post["notering"] = har_konflikt(d["notering"])
-            (leasing if d.get("manadsavgift_sek") else ovriga).append(post)
+            # Ett avtal är en leasing om det har en månadsavgift, eller om namnet
+            # säger det. Zeekr-bilen saknar registrerad avgift men är en leasing.
+            ar_leasing = d.get("manadsavgift_sek") or d["namn"].startswith("Leasing ")
+            (leasing if ar_leasing else ovriga).append(post)
 
     # Utgångna avtal sist, aktiva sorterade på närmast förfall.
     leasing.sort(key=lambda d: (d["status"] == "utgången", d["slutdatum"] or "9999"))
