@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>SHP Översikt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300;400;500&family=Red+Hat+Text:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --plum: #7D2D49;
+  --plum-djup: #5D1D35;
+  --plum-kort: #8B3854;
+  --rosa: #FD89B3;
+  --gron: #5DCA8A;
+  --gul: #F0A050;
+  --rod: #F07070;
+  --bla: #70A0F0;
+  --dis: rgba(255,255,255,.62);
+  --linje: rgba(255,255,255,.14);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--plum);
+  color: #fff;
+  font-family: 'Red Hat Text', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  padding: 0 0 80px;
+}
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ---- header ---- */
+header { padding: 48px 0 32px; border-bottom: 1px solid var(--linje); margin-bottom: 36px; }
+header img { height: 34px; display: block; margin-bottom: 30px; }
+h1 {
+  font-family: 'Red Hat Mono', monospace; font-weight: 300;
+  font-size: clamp(30px, 6vw, 50px); text-transform: uppercase;
+  letter-spacing: .16em; line-height: 1.1;
+}
+.underrubrik { color: var(--dis); margin-top: 12px; font-size: 14px; }
+
+/* ---- filter ---- */
+.filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; }
+.filter button {
+  font-family: 'Red Hat Mono', monospace; font-size: 11px; font-weight: 400;
+  text-transform: uppercase; letter-spacing: .14em;
+  background: transparent; color: var(--dis);
+  border: 1px solid var(--linje); border-radius: 100px;
+  padding: 9px 18px; cursor: pointer; transition: .16s;
+}
+.filter button:hover { color: #fff; border-color: rgba(255,255,255,.4); }
+.filter button[aria-pressed="true"] {
+  background: var(--rosa); color: var(--plum-djup);
+  border-color: var(--rosa); font-weight: 500;
+}
+
+/* ---- sektioner ---- */
+section { margin-bottom: 52px; scroll-margin-top: 20px; }
+h2 {
+  font-family: 'Red Hat Mono', monospace; font-weight: 400; font-size: 13px;
+  text-transform: uppercase; letter-spacing: .2em; color: var(--rosa);
+  padding-bottom: 12px; border-bottom: 1px solid var(--linje); margin-bottom: 22px;
+}
+h2 .rakning { color: var(--dis); margin-left: 10px; font-weight: 300; }
+
+/* ---- kpi ---- */
+.kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; }
+.kpi div { background: var(--plum-kort); border-radius: 12px; padding: 20px 18px; }
+.kpi .tal {
+  font-family: 'Red Hat Mono', monospace; font-weight: 300;
+  font-size: 32px; line-height: 1.1; letter-spacing: -.01em;
+}
+.kpi .etikett {
+  font-family: 'Red Hat Mono', monospace; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .15em; color: var(--dis); margin-top: 8px;
+}
+
+/* ---- kort ---- */
+.kort {
+  background: var(--plum-kort); border-radius: 12px; padding: 20px 22px;
+  margin-bottom: 10px; border-left: 3px solid transparent;
+}
+.kort.niva-rod { border-left-color: var(--rod); }
+.kort.niva-gul { border-left-color: var(--gul); }
+.kort.niva-gron { border-left-color: var(--gron); }
+.kort.niva-bla { border-left-color: var(--bla); }
+.kort-topp { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; justify-content: space-between; }
+.kort h3 { font-size: 16px; font-weight: 500; line-height: 1.35; }
+.meta {
+  font-family: 'Red Hat Mono', monospace; font-size: 11px; letter-spacing: .07em;
+  color: var(--dis); margin-top: 7px;
+}
+.meta b { color: rgba(255,255,255,.85); font-weight: 400; }
+.notering { color: var(--dis); font-size: 13.5px; margin-top: 12px; }
+
+/* ---- badge ---- */
+.badge {
+  font-family: 'Red Hat Mono', monospace; font-size: 10px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .12em;
+  padding: 4px 11px; border-radius: 100px; white-space: nowrap;
+}
+.b-gron { background: rgba(93,202,138,.18); color: var(--gron); }
+.b-gul  { background: rgba(240,160,80,.18);  color: var(--gul); }
+.b-rod  { background: rgba(240,112,112,.2);  color: var(--rod); }
+.b-bla  { background: rgba(112,160,240,.18); color: var(--bla); }
+.b-grå  { background: rgba(255,255,255,.1);  color: var(--dis); }
+
+/* ---- rättighetsrutor för modellreleaser ---- */
+.ratt { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 15px; }
+.ratt div { background: rgba(0,0,0,.16); border-radius: 8px; padding: 12px 14px; }
+.ratt .r-etikett {
+  font-family: 'Red Hat Mono', monospace; font-size: 9.5px; text-transform: uppercase;
+  letter-spacing: .16em; color: var(--rosa); margin-bottom: 5px;
+}
+.ratt .r-varde { font-size: 14px; font-weight: 500; line-height: 1.35; }
+
+/* ---- åtgärdslista ---- */
+.atgard {
+  background: rgba(240,112,112,.12); border: 1px solid rgba(240,112,112,.3);
+  border-radius: 12px; padding: 18px 22px; margin-bottom: 10px;
+}
+.atgard.mild { background: rgba(240,160,80,.1); border-color: rgba(240,160,80,.28); }
+.atgard h3 { font-size: 15px; font-weight: 500; }
+.atgard p { color: rgba(255,255,255,.8); font-size: 13.5px; margin-top: 7px; }
+
+/* ---- länkar ---- */
+.lankar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.lankar a {
+  font-family: 'Red Hat Mono', monospace; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .13em; text-decoration: none;
+  color: var(--dis); border: 1px solid var(--linje);
+  border-radius: 100px; padding: 6px 14px; transition: .16s;
+}
+.lankar a:hover { color: var(--plum-djup); background: var(--rosa); border-color: var(--rosa); }
+
+.tom { color: var(--dis); font-style: italic; padding: 6px 0; }
+footer {
+  margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--linje);
+  color: var(--dis); font-size: 12px;
+}
+footer code { font-family: 'Red Hat Mono', monospace; font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <img src="logo-vit.png" alt="Shiny Happy People">
+  <h1>Översikt</h1>
+  <p class="underrubrik">
+    Leasing, försäkringar och modellreleaser för Concept Agency (559099-6285)
+    och Ad Agency (556787-8722).
+  </p>
+  <div class="filter" id="filter">
+    <button data-bolag="alla" aria-pressed="true">Alla</button>
+    <button data-bolag="concept" aria-pressed="false">Concept Agency</button>
+    <button data-bolag="ad" aria-pressed="false">Ad Agency</button>
+  </div>
+</header>
+
+<section id="kpi-sektion"><div class="kpi" id="kpi"></div></section>
+
+<section>
+  <h2>Action required <span class="rakning" id="antal-atgard"></span></h2>
+  <div id="atgarder"></div>
+</section>
+
+<section>
+  <h2>Leasing <span class="rakning" id="antal-leasing"></span></h2>
+  <div id="leasing"></div>
+</section>
+
+<section>
+  <h2>Insurance <span class="rakning" id="antal-forsakring"></span></h2>
+  <div id="forsakringar"></div>
+</section>
+
+<section>
+  <h2>Model releases <span class="rakning" id="antal-release"></span></h2>
+  <div id="releaser"></div>
+</section>
+
+<section>
+  <h2>Missing releases</h2>
+  <div id="luckor"></div>
+</section>
+
+<section>
+  <h2>Other agreements &amp; subscriptions <span class="rakning" id="antal-ovriga"></span></h2>
+  <div id="ovriga"></div>
+</section>
+
+<footer>
+  Byggd 2026-08-12 från <code>dokument.json</code> och <code>modellreleaser.json</code>.
+  Nedräkningar uppdateras i webbläsaren och är alltid aktuella.
+  Modellernas personnummer, e-post och telefon publiceras aldrig här, de finns bara
+  i det lokala registret.
+</footer>
+
+</div>
+
+<script>
+const DATA = {"byggd": "2026-08-12", "varning": {"gul": 90, "rod": 30}, "bolagsnamn": {"concept": "Concept Agency", "ad": "Ad Agency", "båda": "Båda bolagen", "privat": "Privat", "": "Ospecificerat"}, "leasing": [{"namn": "Leasing Avtal 2310390733 — Fujifilm GFX100 II + objektiv", "kategori": "Leasingavtal", "part": "Ikano Bank AB (publ)", "avtalsnr": "2310390733", "startdatum": "2023-12-01", "slutdatum": "2026-11-30", "status": "aktiv", "notering": "FUJIFILM GFX100 II + GF20-35mmF4 + GF55mmF1.7 + GF80mmF1.7 + GF110mmF2 + VG-GFX100 II (battery grip). Leverantör: Fujifilm Nordic AB (Ludvig Almås). 36 mån, kvartal i förskott. Baspris 123 115 SEK, hyra 3 609 SEK/mån + moms, slutvärde 12 312 SEK. Uppläggning 450 SEK. Basdag 2023-09-25. Egen försäkring enligt separat förbindelse (Gefvert). Signerat via BankID av Daniel 2023-10-23. STATUS 2026-05-19: Daniel har meddelat Ikano att han vill lösa ut utrustningen vid hyrestidens slut (lösenbelopp 12 312 SEK + moms).", "kontakt": "08-514 203 20 / ikanobank.se/foretag", "drive_url": "", "gmail_thread": "", "bolag": "concept", "manadsavgift_sek": 3609, "villkor": {"niva": "atgard", "etikett": "Inlösen pågår"}, "konflikt": "Ikano kundsupport skrev 2026-05-19 (tråd 19e3f4c7cee4e1af) att avtalet löper ut 2026-12-31 och att slutfaktura skickas dessförinnan. Avtalet anger 2026-11-30. Bekräfta rätt slutdatum med Ikano innan inlösen betalas."}, {"namn": "Leasing Avtal 196687 — Mac Studio M3", "kategori": "Leasingavtal", "part": "Release Finans, Umeå", "avtalsnr": "196687", "startdatum": "2024-02-01", "slutdatum": "2027-01-31", "status": "aktiv", "notering": "Apple Mac Studio M3 + tangentbord + Magic Mouse. Leverantör: Goecker AB. 36 mån, kvartal i förskott. Månadsavgift 2 622 SEK exkl moms, restvärde 3 959 SEK. Basdag 2023-12-29. Signerat 2024-01-12. VILLKOR VERIFIERAT 2026-08-12: Allmänna villkor RF 2022:2. Särskilda villkor: \"Avtalet avslutas per slutdatum.\" Ingen 180-dagarsfrist, ingen automatisk förlängning, ingen åtgärd krävs.", "kontakt": "support@releasefinans.se", "drive_url": "", "gmail_thread": "", "bolag": "concept", "manadsavgift_sek": 2622, "villkor": {"niva": "ok", "etikett": "Avslutas per slutdatum"}, "konflikt": ""}, {"namn": "Leasing Avtal 197603 — Apple Pro Display XDR 32\" nanotextur", "kategori": "Leasingavtal", "part": "Release Finans, Umeå", "avtalsnr": "197603", "startdatum": "2024-03-01", "slutdatum": "2027-02-28", "status": "aktiv", "notering": "Apple Pro Display XDR 32\" nanotextur + Pro Stand. Leverantör: Goecker AB. 36 mån, kvartal i förskott. Månadsavgift 2 182 SEK exkl moms, restvärde 3 380 SEK. Basdag 2023-12-29. Signerat 2024-01-31. VILLKOR VERIFIERAT 2026-08-12: Allmänna villkor RF 2022:2. Särskilda villkor: \"Avtalet avslutas per slutdatum.\" Ingen 180-dagarsfrist, ingen automatisk förlängning, ingen åtgärd krävs.", "kontakt": "support@releasefinans.se", "drive_url": "", "gmail_thread": "", "bolag": "concept", "manadsavgift_sek": 2182, "villkor": {"niva": "ok", "etikett": "Avslutas per slutdatum"}, "konflikt": ""}, {"namn": "Leasing Avtal 205141 — DJI MAVIC 3 Pro Cine", "kategori": "Leasingavtal", "part": "Release Finans, Umeå", "avtalsnr": "205141", "startdatum": "2024-10-01", "slutdatum": "2027-09-30", "status": "aktiv", "notering": "DJI MAVIC 3 Pro Cine premium combo. Leverantör: Goecker AB. 36 mån, kvartalsvis i förskott. Månadsavgift 1 100 SEK exkl moms, restvärde 2 220 SEK. Första förhöjd avgift 10 000 SEK. Basdag 2024-08-30. Drönarförsäkring Svedea 6546645. Signerat 2024-09-13. AVTALS-PDF ÅTERFUNNEN 2026-08-12: 'Avtal 205141.pdf' finns bifogad i Gmail-tråd 191eb43fb733cecf (2024-09-13, försäkringsansökan till Svedea). Inköpspris 44 396 SEK exkl moms hos Goecker, SN 1581F6MKC236Q0240SRD. Avslutsvillkor fortfarande OVERIFIERADE, PDF:en behöver läsas och villkorsversionen (RF 2022:2 eller senare) fastställas.", "kontakt": "support@releasefinans.se", "drive_url": "", "gmail_thread": "19204e0419cf17ba", "bolag": "concept", "manadsavgift_sek": 1100, "villkor": {"niva": "overifierat", "etikett": "Villkor ej verifierade"}, "konflikt": ""}, {"namn": "Leasing Avtal 228546 — DZO ARLES Prime PL 25/40/75 mm", "kategori": "Leasingavtal", "part": "Release Finans, Umeå", "avtalsnr": "228546", "startdatum": "2026-04-01", "slutdatum": "2029-03-31", "status": "aktiv", "notering": "DZO ARLES 25/40/75 mm Prime PL objektivset. Leverantör: Goecker AB. 36 mån, kvartalsvis i förskott. Månadsavgift 1 748 SEK exkl moms, restvärde 5 810 SEK. Basdag 2026-02-27. Egen försäkring via Gefvert (113-1052201). Signerat via BankID 2026-03-16. Allmänna villkor RF 2025:2. VILLKOR VERIFIERAT 2026-08-12: RF 2025:2 saknar raden \"Avtalet avslutas per slutdatum\". §16 gäller alltså fullt ut: anvisa köpare skriftligen senast 180 dagar före slutdatum (~2028-10-03), annars förlängning 12 mån à 1 748 SEK.", "kontakt": "support@releasefinans.se / 090-690 40 10", "drive_url": "", "gmail_thread": "19cfbdc3fd1eaec6", "bolag": "concept", "manadsavgift_sek": 1748, "villkor": {"niva": "atgard", "etikett": "180-dagarsfrist gäller"}, "konflikt": ""}, {"namn": "Leasing Fujifilm GFX ETERNA 55", "kategori": "Leasingavtal", "part": "Ikano Bank AB (publ)", "avtalsnr": "2603433455", "startdatum": "2026-05-01", "slutdatum": "2029-04-30", "status": "aktiv", "notering": "GFX ETERNA 55 Cinema Camera, SN 54000040. 36 mån, kvartal i förskott. Hyra 3 545 SEK/mån + moms. Baspris 125 094 SEK, slutvärde 12 509 SEK. Leverans godkänd 2026-03-20 av Lasse. Försäkring: Gefvert (113-1052201). Signerat via BankID av Lars Edholm. AVTALS-PDF ÅTERFUNNEN 2026-08-12: hela dokumentpaketet finns i Gmail-tråd 19e011dc72e4b28a (2026-05-07 från Lasse), inkl. avt433455005_260319124942.pades.pdf. Filerna finns redan lokalt i Concept Agency/Leasing/Ikano/. Avslutsvillkor fortfarande OVERIFIERADE, Ikano har egna villkor och måste läsas separat. OLÖST: signeringsprocessen avbröts 2026-06-17 (tråd 19ed5cba268bfc88) och ny borgensförbindelse skickades till Lars Edholm. Lasse jagade 2026-06-25 Ludvig Almås om att leasingnumret är oförändrat, inget svar hittat. Påverkar försäkringen.", "kontakt": "08-514 203 20 / ikanobank.se/foretag", "drive_url": "", "gmail_thread": "19e011dc72e4b28a", "bolag": "concept", "manadsavgift_sek": 3545, "villkor": {"niva": "overifierat", "etikett": "Villkor ej verifierade"}, "konflikt": ""}, {"namn": "Leasing Avtal 186998 — Canon RF 50/1.2 + Nisi-filter", "kategori": "Leasingavtal", "part": "Release Finans, Umeå", "avtalsnr": "186998", "startdatum": "2023-04-01", "slutdatum": "2026-03-31", "status": "utgången", "notering": "Canon RF 50/1.2 + Nisi UV 77/82 + ND vario-filter. Leverantör: Goecker AB. 36 mån, kvartal i förskott. Månadsavgift 963 SEK exkl moms, restvärde 1 527 SEK. Basdag 2023-02-28. Signerat 2023-03-21. Löst ut vid avtalets slut.", "kontakt": "support@releasefinans.se", "drive_url": "", "gmail_thread": "", "bolag": "concept", "manadsavgift_sek": 963, "villkor": {"niva": "atgard", "etikett": "Inlösen pågår"}, "konflikt": ""}, {"namn": "Leasing Avtal 187217 — MacBook Pro 16\"", "kategori": "Leasingavtal", "part": "Release Finans, Umeå", "avtalsnr": "187217", "startdatum": "2023-04-01", "slutdatum": "2026-03-31", "status": "utgången", "notering": "Apple MacBook 16\". Leverantör: Goecker AB. 36 mån, kvartal i förskott. Månadsavgift 1 630 SEK exkl moms, restvärde 2 550 SEK. Basdag 2023-02-28. Signerat 2023-03-24. Löst ut vid avtalets slut.", "kontakt": "support@releasefinans.se", "drive_url": "", "gmail_thread": "", "bolag": "concept", "manadsavgift_sek": 1630, "villkor": {"niva": "atgard", "etikett": "Inlösen pågår"}, "konflikt": ""}], "ovriga": [{"namn": "Abonnemangsavtal Microsoft (Telia)", "kategori": "Leasingavtal", "part": "Telia", "avtalsnr": "CS33768441", "startdatum": "2025-09-15", "slutdatum": "", "status": "aktiv", "notering": "E-signerat via Scrive september 2025.", "kontakt": "servicedesk@support.telia.se", "drive_url": "", "gmail_thread": "1994c7d9fe789b43", "bolag": "", "manadsavgift_sek": null, "villkor": {"niva": "overifierat", "etikett": "Villkor ej granskade"}, "konflikt": ""}, {"namn": "Borgensförbindelse Ikano avtal 2603433455", "kategori": "Leasingavtal", "part": "Lars Edholm / Ikano Bank AB (publ)", "avtalsnr": "2603433455", "startdatum": "2026-03-19", "slutdatum": "", "status": "aktiv", "notering": "Lars Edholm ([personnr dolt]) tecknat personlig borgen såsom för egen skuld för SHPs leasingavtal på GFX ETERNA 55. Signerat via BankID 2026-03-19.", "kontakt": "lasse@shinyhappypeople.se", "drive_url": "", "gmail_thread": "19e011dc72e4b28a", "bolag": "concept", "manadsavgift_sek": null, "villkor": {"niva": "overifierat", "etikett": "Villkor ej granskade"}, "konflikt": ""}, {"namn": "Fiberanslutning kontoret", "kategori": "Leasingavtal", "part": "Infracom", "avtalsnr": "", "startdatum": "2025-10-09", "slutdatum": "", "status": "aktiv", "notering": "Fiberavtal tecknat oktober 2025 (Lasse). Pris och hastighet behållna.", "kontakt": "andreas.astorga@infracom.se", "drive_url": "", "gmail_thread": "199c45a3b2ec2bab", "bolag": "båda", "manadsavgift_sek": null, "villkor": {"niva": "overifierat", "etikett": "Villkor ej granskade"}, "konflikt": ""}, {"namn": "IT-Support Shiny Happy People Ad Agency", "kategori": "Leasingavtal", "part": "Yavuz Demir", "avtalsnr": "", "startdatum": "2025-02-13", "slutdatum": "", "status": "aktiv", "notering": "IT-supportavtal, e-signerat feb 2025. Obundet tills hösten.", "kontakt": "", "drive_url": "", "gmail_thread": "194ff0ede4338fad", "bolag": "ad", "manadsavgift_sek": null, "villkor": {"niva": "overifierat", "etikett": "Villkor ej granskade"}, "konflikt": ""}, {"namn": "Ikano Bank faktura maj 2026", "kategori": "Leasingavtal", "part": "Ikano Bank AB (publ)", "avtalsnr": "", "startdatum": "2026-05-06", "slutdatum": "", "status": "aktiv", "notering": "Inkommande faktura mottagen 2026-05-06. Troligen leasingfaktura Fujifilm Eterna. Vidarebefordrad till arkivplats.", "kontakt": "invoice.noreply@ikano.se", "drive_url": "", "gmail_thread": "19dfcdebedb9b1b9", "bolag": "concept", "manadsavgift_sek": null, "villkor": {"niva": "overifierat", "etikett": "Villkor ej granskade"}, "konflikt": ""}, {"namn": "Köpkontrakt KZX19N (Riddermark Bil)", "kategori": "Leasingavtal", "part": "Riddermark Bil AB", "avtalsnr": "", "startdatum": "2024-06-06", "slutdatum": "", "status": "aktiv", "notering": "Bil-inköpskontrakt signerat juni 2024.", "kontakt": "", "drive_url": "", "gmail_thread": "18feccc435c61f4c", "bolag": "ad", "manadsavgift_sek": null, "villkor": {"niva": "overifierat", "etikett": "Villkor ej granskade"}, "konflikt": ""}, {"namn": "Leasing Zeekr X (JRA26W)", "kategori": "Leasingavtal", "part": "Santander / Ikano", "avtalsnr": "2028884", "startdatum": "", "slutdatum": "", "status": "aktiv", "notering": "Reklamation/hävningsärende från juli 2025 ej längre aktuellt.", "kontakt": "foretag@santander.se", "drive_url": "", "gmail_thread": "197e46101fb757ba", "bolag": "ad", "manadsavgift_sek": null, "villkor": {"niva": "overifierat", "etikett": "Villkor ej granskade"}, "konflikt": ""}, {"namn": "Leveransgodkännande 228546", "kategori": "Leasingavtal", "part": "Release Finans, Umeå", "avtalsnr": "228546", "startdatum": "2026-03-16", "slutdatum": "", "status": "aktiv", "notering": "Signerat leveransgodkännande för DZO-objektiven.", "kontakt": "", "drive_url": "", "gmail_thread": "19cf77fb965f5c13", "bolag": "concept", "manadsavgift_sek": null, "villkor": {"niva": "overifierat", "etikett": "Villkor ej granskade"}, "konflikt": ""}], "forsakringar": [{"namn": "Drönarförsäkring Svedea (DJI Mavic 3 Pro Cine)", "kategori": "Försäkring", "part": "Svedea AB / HDI Global Specialty SE", "avtalsnr": "6546645", "startdatum": "2026-01-18", "slutdatum": "2027-01-17", "status": "aktiv", "notering": "DJI Mavic 3 Pro Cine Premium Combo, SN 1581F6MKC236Q0240SRD. Operatörs-ID SWE7k0gp4yh1bprd. Pilot: Daniel Olsén. Ansvarsförs 750 000 SDR + Allrisk 44 000 SEK. Årspremie 4 440 SEK (3 040 allrisk + 1 400 ansvar). Förmedlare: Gefvert (gefvert@soderbergpartners.se). Förnyat 2025-12-15 för period 2026-01-18 – 2027-01-17.", "kontakt": "skadorforetag@svedea.se / 0771-160 190", "drive_url": "", "gmail_thread": "", "bolag": "concept", "manadsavgift_sek": null}, {"namn": "Kombinerad företagsförsäkring", "kategori": "Försäkring", "part": "Länsförsäkringar Stockholm", "avtalsnr": "9111985*14", "startdatum": "2026-04-01", "slutdatum": "2027-03-31", "status": "aktiv", "notering": "Förnyelse av 9111985*11/13. Täcker Concept Agency (559099-6285) + Ad Agency AB (556787-8722). Premie 13 021 kr/år, betald. Ref: 628911198501454. BG 362-3733.", "kontakt": "foretag@lansforsakringar.se / 08-562 832 00", "drive_url": "https://drive.google.com/file/d/1HYOrZ2zt1KVvnDPnHZOs2GyVcOGsg7a8/view", "gmail_thread": "19e011dc72e4b28a", "bolag": "båda", "manadsavgift_sek": null}, {"namn": "If företagsförsäkring (Ad Agency AB)", "kategori": "Försäkring", "part": "If", "avtalsnr": "", "startdatum": "", "slutdatum": "", "status": "aktiv", "notering": "Förnyas automatiskt. Försäkringsbrev finns på Mina sidor hos If.", "kontakt": "if.se", "drive_url": "", "gmail_thread": "19c8276dd6724310", "bolag": "ad", "manadsavgift_sek": null}, {"namn": "Cyberförsäkring", "kategori": "Försäkring", "part": "Safestate", "avtalsnr": "", "startdatum": "", "slutdatum": "", "status": "aktiv", "notering": "Cyberförsäkring inkl. Cyberinsikter-rapporter månadsvis.", "kontakt": "safestate.com", "drive_url": "", "gmail_thread": "19dde9d65e6bb3be", "bolag": "ad", "manadsavgift_sek": null}, {"namn": "Utrustningsförsäkring (DZO + Fujifilm Eterna)", "kategori": "Försäkring", "part": "Gefvert / Söderberg & Partners", "avtalsnr": "", "startdatum": "2026-03-18", "slutdatum": "", "status": "aktiv", "notering": "Uppdaterad inför Sydafrika-resa mars 2026. Täcker leasad kamerautrustning.", "kontakt": "gefvert@soderbergpartners.se (Samuel Zederfeldt)", "drive_url": "", "gmail_thread": "19cf64425869630d", "bolag": "concept", "manadsavgift_sek": null}, {"namn": "Personförsäkring / sjukförsäkring", "kategori": "Försäkring", "part": "Euro Accident", "avtalsnr": "", "startdatum": "", "slutdatum": "", "status": "aktiv", "notering": "Faktura mottagen feb 2026.", "kontakt": "info@euroaccident.se / 077-440 00 10", "drive_url": "", "gmail_thread": "19c7088d1989cc25", "bolag": "privat", "manadsavgift_sek": null}, {"namn": "Bilförsäkring Zeekr X (JRA26W)", "kategori": "Försäkring", "part": "Trygg-Hansa via Santander", "avtalsnr": "2028884", "startdatum": "", "slutdatum": "", "status": "aktiv", "notering": "Kopplad till leasingavtal 2028884.", "kontakt": "portal.trygghansa.se", "drive_url": "", "gmail_thread": "19c23942087af1da", "bolag": "ad", "manadsavgift_sek": null}], "releaser": [{"id": "letsbridge-pajas-johan-2026", "bolag": "concept", "slutkund": "LetsBridge AB", "produktion": "Reklamfilm \"Pajas\"", "fotodatum": "2026-06-11", "plats": "Stockholm", "nyttjande": {"start": "2026-06-11", "slut": "2029-06-11", "beskrivning": "Tre (3) år från fotograferingsdatum"}, "marknad": ["Sverige"], "medier": ["Alla kanaler"], "ersattning_sek": 4000, "ersattning_notering": "Exkl. moms, inkl. resa och omkostnader", "exklusivitet": false, "minderarig": false, "signerat": true, "signeringsdatum": "2026-06-11", "status": "signerat", "signeringsmetod": "Adobe Acrobat Sign", "gmail_thread": "19eb6ca155bb5a32", "gmail_thread_utskick": "19eb672e539d604d", "dokument": "FILES/Personal Assistent/Modellavtal-Johan-26-06-11.docx", "notering": "Signerat samma dag som inspelningen.", "modell": {"namn": "Johan Nilson"}}, {"id": "letsbridge-kungligt-gry-2026", "bolag": "concept", "slutkund": "LetsBridge AB", "produktion": "Reklamfilm \"Kungligt\"", "fotodatum": "2026-06-11", "plats": "Stockholm", "nyttjande": {"start": "2026-06-11", "slut": "2029-06-11", "beskrivning": "Tre (3) år från fotograferingsdatum"}, "marknad": ["Sverige"], "medier": ["Alla kanaler"], "ersattning_sek": 3000, "ersattning_notering": "Exkl. moms", "exklusivitet": false, "minderarig": false, "signerat": true, "signeringsdatum": "2026-06-16", "status": "signerat", "signeringsmetod": "Adobe Acrobat Sign", "gmail_thread": "19ed1a49f5db82a5", "gmail_thread_utskick": "19ecf9ca3b3b6da3", "dokument": "FILES/Personal Assistent/Modellavtal-Gry-26-06-16.docx", "notering": "Signerat 5 dagar EFTER inspelningen. Bör signeras på plats i framtiden.", "modell": {"namn": "Gry Friman"}}, {"id": "letsbridge-kungligt-magda-2026", "bolag": "concept", "slutkund": "LetsBridge AB", "produktion": "Reklamfilm \"Kungligt\"", "fotodatum": "2026-06-11", "plats": "Stockholm", "nyttjande": {"start": "2026-06-11", "slut": "2029-06-11", "beskrivning": "Tre (3) år från fotograferingsdatum"}, "marknad": ["Sverige"], "medier": ["Alla kanaler"], "ersattning_sek": 3000, "ersattning_notering": "Exkl. moms. Fakturerat via Frilans Finans, faktura 8609683.", "exklusivitet": false, "minderarig": false, "signerat": true, "signeringsdatum": "2026-06-17", "status": "signerat", "signeringsmetod": "Adobe Acrobat Sign", "gmail_thread": "19ed4cb7be9e2044", "gmail_thread_utskick": "19ecf9df68e292e1", "dokument": "FILES/Personal Assistent/Modellavtal-Magda-26-06-16.docx", "notering": "Signerat 6 dagar EFTER inspelningen. Bör signeras på plats i framtiden.", "modell": {"namn": "Magda Björk"}}, {"id": "preem-2024-saknade-releaser", "bolag": "concept", "slutkund": "Preem AB (via Bold Scandinavia)", "produktion": "Uppdragsfotografering Preem, vår 2024", "fotodatum": "2024-04", "plats": "", "nyttjande": {"start": "2024-04", "slut": null, "beskrivning": "Utlovat till kund: fria rättigheter för all framtid, world wide"}, "marknad": ["World wide"], "medier": ["Alla kanaler"], "ersattning_sek": 48000, "ersattning_notering": "4 000 SEK x 12 modeller enligt offert till kund", "exklusivitet": false, "minderarig": false, "signerat": false, "signeringsdatum": "", "status": "saknas", "signeringsmetod": "", "gmail_thread": "18ec70b3f06389fe", "gmail_thread_utskick": "", "dokument": "", "notering": "RISK: SHP har i offert till Preem/Bold Scandinavia utlovat fria rättigheter world wide för all framtid för 12 modeller. Byråavtalet \"Uppdragsfotografering Preem AB\" är signerat (2024-05-08), men INGA individuella modellreleaser hittades i Gmail. Utan påskrivna releaser saknas rättighetskedja mot modellerna. Ta fram de påskrivna originalen eller efterregistrera.", "modell": {"namn": "12 modeller, namn ej registrerade"}}], "luckor": [{"produktion": "Office Depot, TikTok-intervju", "datum": "2026-02", "beskrivning": "Max Palmqvist skrev ut och tog med SHP:s releaser till inspelningen. Inga signerade kopior har mejlats tillbaka. Kontrollera om de finns i papper.", "gmail_thread": "19c5672cd3facd33"}, {"produktion": "Fujifilm-inspelning", "datum": "2025-03-10", "beskrivning": "Modell Elisabet bokad via Mikas agency. Bokningsbekräftelse från agenturen finns, men ingen SHP-release. Agenturavtalet kan täcka rättigheterna, verifiera villkoren.", "gmail_thread": "194f506bca9c8632"}, {"produktion": "Eurotransport", "datum": "2024-10-24", "beskrivning": "Modeller diskuterade i mejl, ingen release hittad.", "gmail_thread": "192b442d7ed839b8"}, {"produktion": "BookBeat, händer", "datum": "2024", "beskrivning": "Modeller diskuterade i mejl, ingen release hittad. Handbilder kan vara icke-identifierbara, då krävs ingen release.", "gmail_thread": "18d88d46a140825d"}, {"produktion": "KA-YO", "datum": "2023-10", "beskrivning": "Modeller diskuterade i mejl, ingen release hittad.", "gmail_thread": "18b285d77ed2bf8c"}]};
+
+const idag = new Date(); idag.setHours(0, 0, 0, 0);
+
+const dagarKvar = iso => {
+  if (!iso || iso.length !== 10) return null;
+  return Math.round((new Date(iso + 'T00:00:00') - idag) / 86400000);
+};
+
+const niva = d => {
+  if (d === null) return 'ingen';
+  if (d < 0) return 'utgangen';
+  if (d <= DATA.varning.rod) return 'rod';
+  if (d <= DATA.varning.gul) return 'gul';
+  return 'gron';
+};
+
+const NIVA_KLASS = { utgangen: 'rod', rod: 'rod', gul: 'gul', gron: 'gron', ingen: 'grå' };
+
+const dagText = d => {
+  if (d === null) return 'Inget slutdatum';
+  if (d < 0) return `Utgången för ${Math.abs(d)} dgr sedan`;
+  if (d === 0) return 'Går ut idag';
+  if (d < 90) return `${d} dgr kvar`;
+  const man = Math.round(d / 30.44);
+  return man < 24 ? `${man} mån kvar` : `${(d / 365.25).toFixed(1)} år kvar`;
+};
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+const kr = n => n == null ? '' : n.toLocaleString('sv-SE') + ' SEK';
+const bolagsnamn = b => DATA.bolagsnamn[b] ?? b;
+
+const gmail = t => t
+  ? `<a href="https://mail.google.com/mail/u/0/#all/${t}" target="_blank" rel="noopener">Öppna i Gmail</a>` : '';
+const drive = u => u
+  ? `<a href="${esc(u)}" target="_blank" rel="noopener">Öppna i Drive</a>` : '';
+
+let aktivtBolag = 'alla';
+const passar = b => aktivtBolag === 'alla' || b === aktivtBolag || b === 'båda';
+
+/* ---------------------------------------------------------- renderare */
+
+function kortLeasing(d) {
+  const kvar = dagarKvar(d.slutdatum);
+  const n = d.status === 'utgången' ? 'ingen' : niva(kvar);
+  const villkorKlass = { ok: 'b-gron', atgard: 'b-gul', overifierat: 'b-bla' }[d.villkor.niva];
+  return `
+  <div class="kort niva-${NIVA_KLASS[n]}">
+    <div class="kort-topp">
+      <h3>${esc(d.namn)}</h3>
+      <span class="badge b-${NIVA_KLASS[n]}">${d.status === 'utgången' ? 'Utgången' : esc(dagText(kvar))}</span>
+    </div>
+    <div class="meta">
+      ${esc(bolagsnamn(d.bolag))} &nbsp;·&nbsp; ${esc(d.part)}
+      ${d.avtalsnr ? ' &nbsp;·&nbsp; Avtal <b>' + esc(d.avtalsnr) + '</b>' : ''}
+      ${d.manadsavgift_sek ? ' &nbsp;·&nbsp; <b>' + kr(d.manadsavgift_sek) + '</b>/mån exkl moms' : ''}
+      <br>${esc(d.startdatum || '?')} &rarr; ${esc(d.slutdatum || '?')}
+      &nbsp;·&nbsp; <span class="badge ${villkorKlass}">${esc(d.villkor.etikett)}</span>
+    </div>
+    ${d.konflikt ? `<p class="notering"><b>⚠ ${esc(d.konflikt)}</b></p>` : ''}
+    <p class="notering">${esc(d.notering)}</p>
+    <div class="lankar">${drive(d.drive_url)}${gmail(d.gmail_thread)}</div>
+  </div>`;
+}
+
+function kortForsakring(d) {
+  const kvar = dagarKvar(d.slutdatum);
+  const n = niva(kvar);
+  return `
+  <div class="kort niva-${NIVA_KLASS[n]}">
+    <div class="kort-topp">
+      <h3>${esc(d.namn)}</h3>
+      <span class="badge b-${NIVA_KLASS[n]}">${kvar === null ? 'Löpande' : esc(dagText(kvar))}</span>
+    </div>
+    <div class="meta">
+      ${esc(bolagsnamn(d.bolag))} &nbsp;·&nbsp; ${esc(d.part)}
+      ${d.avtalsnr ? ' &nbsp;·&nbsp; Nr <b>' + esc(d.avtalsnr) + '</b>' : ''}
+      ${d.startdatum || d.slutdatum
+        ? '<br>' + esc(d.startdatum || '?') + ' &rarr; ' + esc(d.slutdatum || 'tills vidare') : ''}
+      ${d.kontakt ? '<br>' + esc(d.kontakt) : ''}
+    </div>
+    <p class="notering">${esc(d.notering)}</p>
+    <div class="lankar">${drive(d.drive_url)}${gmail(d.gmail_thread)}</div>
+  </div>`;
+}
+
+function kortRelease(r) {
+  const slut = r.nyttjande.slut;
+  const kvar = dagarKvar(slut);
+  const saknas = r.status === 'saknas';
+  const n = saknas ? 'rod' : (slut === null ? 'ingen' : niva(kvar));
+  const badge = saknas
+    ? '<span class="badge b-rod">Release saknas</span>'
+    : `<span class="badge b-${NIVA_KLASS[n]}">${slut === null ? 'Eviga rättigheter' : esc(dagText(kvar))}</span>`;
+  return `
+  <div class="kort niva-${NIVA_KLASS[n]}">
+    <div class="kort-topp">
+      <h3>${esc(r.modell.namn)}</h3>
+      ${badge}
+    </div>
+    <div class="meta">
+      ${esc(bolagsnamn(r.bolag))} &nbsp;·&nbsp; Slutkund <b>${esc(r.slutkund)}</b>
+      &nbsp;·&nbsp; ${esc(r.produktion)}
+      <br>Fotograferat ${esc(r.fotodatum)}${r.plats ? ', ' + esc(r.plats) : ''}
+      ${r.ersattning_sek ? ' &nbsp;·&nbsp; Ersättning <b>' + kr(r.ersattning_sek) + '</b>' : ''}
+      &nbsp;·&nbsp; ${r.signerat
+        ? '<span class="badge b-gron">Signerat ' + esc(r.signeringsdatum) + '</span>'
+        : '<span class="badge b-rod">Ej signerat</span>'}
+    </div>
+    <div class="ratt">
+      <div><div class="r-etikett">Marknad</div><div class="r-varde">${esc(r.marknad.join(', '))}</div></div>
+      <div><div class="r-etikett">Tid</div><div class="r-varde">${esc(r.nyttjande.beskrivning)}</div></div>
+      <div><div class="r-etikett">Medier</div><div class="r-varde">${esc(r.medier.join(', '))}</div></div>
+      <div><div class="r-etikett">Går ut</div><div class="r-varde">${slut ? esc(slut) : 'Aldrig'}</div></div>
+    </div>
+    ${r.exklusivitet ? '<p class="notering"><b>Exklusivitet gäller.</b></p>' : ''}
+    <p class="notering">${esc(r.notering)}</p>
+    <div class="lankar">${gmail(r.gmail_thread)}</div>
+  </div>`;
+}
+
+function kortOvrig(d) {
+  return `
+  <div class="kort niva-bla">
+    <div class="kort-topp">
+      <h3>${esc(d.namn)}</h3>
+      <span class="badge b-grå">${esc(bolagsnamn(d.bolag))}</span>
+    </div>
+    <div class="meta">${esc(d.part)}${d.avtalsnr ? ' &nbsp;·&nbsp; ' + esc(d.avtalsnr) : ''}</div>
+    <p class="notering">${esc(d.notering)}</p>
+    <div class="lankar">${drive(d.drive_url)}${gmail(d.gmail_thread)}</div>
+  </div>`;
+}
+
+function kortLucka(l) {
+  return `
+  <div class="kort niva-gul">
+    <div class="kort-topp">
+      <h3>${esc(l.produktion)}</h3>
+      <span class="badge b-gul">${esc(l.datum)}</span>
+    </div>
+    <p class="notering">${esc(l.beskrivning)}</p>
+    <div class="lankar">${gmail(l.gmail_thread)}</div>
+  </div>`;
+}
+
+/* ---------------------------------------------------------- åtgärder */
+
+function byggAtgarder(leasing, forsakringar, releaser) {
+  const ut = [];
+
+  for (const d of leasing) {
+    const kvar = dagarKvar(d.slutdatum);
+    if (d.status !== 'utgången' && kvar !== null && kvar <= DATA.varning.gul) {
+      ut.push({ akut: kvar <= DATA.varning.rod, rubrik: d.namn,
+        text: `Leasingen går ut ${d.slutdatum} (${dagText(kvar)}). ${d.villkor.etikett}.` });
+    }
+    if (d.villkor.niva === 'overifierat' && d.status === 'aktiv') {
+      ut.push({ akut: false, rubrik: d.namn,
+        text: 'Avslutsvillkoren är inte verifierade mot avtalets särskilda villkor. Läs framsidan innan du utgår från något slutdatum.' });
+    }
+    // En konflikt är alltid mer konkret än den generiska villkorsflaggan,
+    // så de dubbleras inte på samma avtal.
+    if (d.konflikt) {
+      ut.push({ akut: true, rubrik: d.namn, text: d.konflikt });
+    } else if (d.villkor.niva === 'atgard' && d.status === 'aktiv') {
+      ut.push({ akut: false, rubrik: d.namn, text: d.villkor.etikett + '. Kontrollera fristen i god tid.' });
+    }
+  }
+
+  for (const d of forsakringar) {
+    const kvar = dagarKvar(d.slutdatum);
+    if (kvar !== null && kvar <= DATA.varning.gul) {
+      ut.push({ akut: kvar <= DATA.varning.rod, rubrik: d.namn,
+        text: `Försäkringen går ut ${d.slutdatum} (${dagText(kvar)}). Bevaka förnyelsen hos ${d.part}.` });
+    }
+  }
+
+  for (const r of releaser) {
+    if (r.status === 'saknas') {
+      ut.push({ akut: true, rubrik: `${r.slutkund} — modellrelease saknas`, text: r.notering });
+      continue;
+    }
+    const kvar = dagarKvar(r.nyttjande.slut);
+    if (kvar !== null && kvar <= DATA.varning.gul) {
+      ut.push({ akut: kvar <= DATA.varning.rod, rubrik: `${r.modell.namn} (${r.slutkund})`,
+        text: `Nyttjanderätten går ut ${r.nyttjande.slut} (${dagText(kvar)}). Materialet måste tas ur ${r.medier.join(', ').toLowerCase()} i ${r.marknad.join(', ')}, eller så måste avtalet förlängas.` });
+    }
+  }
+
+  ut.sort((a, b) => Number(b.akut) - Number(a.akut));
+  return ut;
+}
+
+/* ---------------------------------------------------------- rendering */
+
+function rendera() {
+  const leasing = DATA.leasing.filter(d => passar(d.bolag));
+  const forsakringar = DATA.forsakringar.filter(d => passar(d.bolag));
+  const releaser = DATA.releaser.filter(r => passar(r.bolag));
+  const ovriga = DATA.ovriga.filter(d => passar(d.bolag));
+
+  const aktivLeasing = leasing.filter(d => d.status === 'aktiv');
+  const manad = aktivLeasing.reduce((s, d) => s + (d.manadsavgift_sek || 0), 0);
+  const releaserUtgar = releaser.filter(r => {
+    const k = dagarKvar(r.nyttjande.slut);
+    return k !== null && k <= 365;
+  }).length;
+
+  const atgarder = byggAtgarder(leasing, forsakringar, releaser);
+
+  document.getElementById('kpi').innerHTML = [
+    [manad.toLocaleString('sv-SE'), 'SEK/mån leasing exkl moms'],
+    [aktivLeasing.length, 'Aktiva leasingavtal'],
+    [forsakringar.length, 'Försäkringar'],
+    [releaser.filter(r => r.signerat).length, 'Signerade releaser'],
+    [releaserUtgar, 'Releaser ut inom 1 år'],
+    [atgarder.length, 'Punkter att agera på'],
+  ].map(([tal, etikett]) =>
+    `<div><div class="tal">${esc(tal)}</div><div class="etikett">${esc(etikett)}</div></div>`
+  ).join('');
+
+  const satt = (id, html, tomText) => {
+    document.getElementById(id).innerHTML = html || `<p class="tom">${tomText}</p>`;
+  };
+
+  satt('atgarder', atgarder.map(a =>
+    `<div class="atgard ${a.akut ? '' : 'mild'}">
+       <h3>${esc(a.rubrik)}</h3><p>${esc(a.text)}</p>
+     </div>`).join(''), 'Inget kräver åtgärd just nu.');
+
+  satt('leasing', leasing.map(kortLeasing).join(''), 'Inga leasingavtal för valt bolag.');
+  satt('forsakringar', forsakringar.map(kortForsakring).join(''), 'Inga försäkringar för valt bolag.');
+  satt('releaser', releaser.map(kortRelease).join(''), 'Inga modellreleaser för valt bolag.');
+  satt('ovriga', ovriga.map(kortOvrig).join(''), 'Inga övriga avtal för valt bolag.');
+  satt('luckor', DATA.luckor.map(kortLucka).join(''), 'Inga kända luckor.');
+
+  document.getElementById('antal-atgard').textContent = atgarder.length;
+  document.getElementById('antal-leasing').textContent = leasing.length;
+  document.getElementById('antal-forsakring').textContent = forsakringar.length;
+  document.getElementById('antal-release').textContent = releaser.length;
+  document.getElementById('antal-ovriga').textContent = ovriga.length;
+}
+
+document.getElementById('filter').addEventListener('click', e => {
+  const knapp = e.target.closest('button');
+  if (!knapp) return;
+  aktivtBolag = knapp.dataset.bolag;
+  for (const b of document.querySelectorAll('#filter button')) {
+    b.setAttribute('aria-pressed', String(b === knapp));
+  }
+  rendera();
+});
+
+rendera();
+</script>
+</body>
+</html>
