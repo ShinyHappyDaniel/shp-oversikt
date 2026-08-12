@@ -145,6 +145,7 @@ def bygg_data() -> dict:
 
 # ---------------------------------------------------------------- mall
 
+
 MALL = """<!doctype html>
 <html lang="sv">
 <head>
@@ -154,198 +155,183 @@ MALL = """<!doctype html>
 <title>SHP Översikt</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@300;400;500&family=Red+Hat+Text:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500&family=Red+Hat+Mono:wght@300;400;500;600&family=Red+Hat+Text:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* Designsystem hämtat från Face2Face-dashboarden. */
 :root {
-  --plum: #7D2D49;
-  --plum-djup: #5D1D35;
-  --plum-kort: #8B3854;
-  --rosa: #FD89B3;
+  --bg-primary: #1B1318;
+  --bg-secondary: #211D1F;
+  --border: #3a2a32;
+  --header-bg: #7D2D49;
+  --pink: #FD89B3;
+  --text: #FFFFFF;
+  --muted: #6F6E6E;
+  /* Face2Face använder --muted till korta etiketter. Noteringarna här är
+     långa stycken, och #6F6E6E blir för svagt mot #1B1318 i löptext. */
+  --muted-text: #9C9799;
   --gron: #5DCA8A;
-  --gul: #F0A050;
-  --rod: #F07070;
-  --bla: #70A0F0;
-  --dis: rgba(255,255,255,.62);
-  --linje: rgba(255,255,255,.14);
+  --gul:  #F0A050;
+  --rod:  #F07070;
+  --bla:  #70A0F0;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: var(--plum);
-  color: #fff;
-  font-family: 'Red Hat Text', system-ui, sans-serif;
-  font-size: 15px;
-  line-height: 1.55;
+  background: var(--bg-primary); color: var(--text);
+  font-family: 'Red Hat Text', sans-serif; font-size: 14px; line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  padding: 0 0 80px;
 }
-.wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.app { max-width: 1400px; margin: 0 auto; padding: 20px 20px 80px; }
 
-/* ---- header ---- */
-header { padding: 48px 0 32px; border-bottom: 1px solid var(--linje); margin-bottom: 36px; }
-header img { height: 34px; display: block; margin-bottom: 30px; }
-h1 {
-  font-family: 'Red Hat Mono', monospace; font-weight: 300;
-  font-size: clamp(30px, 6vw, 50px); text-transform: uppercase;
-  letter-spacing: .16em; line-height: 1.1;
+/* ===== HEADER ===== */
+.header { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--pink); }
+.header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.header-logo img { height: 16px; opacity: .85; display: block; }
+.header-user {
+  font-family: 'Red Hat Mono', monospace; font-size: 11px; background: var(--header-bg);
+  padding: 5px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;
 }
-.underrubrik { color: var(--dis); margin-top: 12px; font-size: 14px; }
-
-/* ---- filter ---- */
-.filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; }
-.filter button {
-  font-family: 'Red Hat Mono', monospace; font-size: 11px; font-weight: 400;
-  text-transform: uppercase; letter-spacing: .14em;
-  background: transparent; color: var(--dis);
-  border: 1px solid var(--linje); border-radius: 100px;
-  padding: 9px 18px; cursor: pointer; transition: .16s;
+.header-main {
+  font-family: 'Red Hat Mono', monospace; font-size: 30px; font-weight: 300;
+  letter-spacing: 4px; text-transform: uppercase; margin-bottom: 2px;
 }
-.filter button:hover { color: #fff; border-color: rgba(255,255,255,.4); }
-.filter button[aria-pressed="true"] {
-  background: var(--rosa); color: var(--plum-djup);
-  border-color: var(--rosa); font-weight: 500;
+.header-sub {
+  font-family: 'Red Hat Display', sans-serif; font-size: 16px; font-weight: 400;
+  color: var(--muted); margin-bottom: 14px;
 }
 
-/* ---- sektioner ---- */
-section { margin-bottom: 52px; scroll-margin-top: 20px; }
-h2 {
-  font-family: 'Red Hat Mono', monospace; font-weight: 400; font-size: 13px;
-  text-transform: uppercase; letter-spacing: .2em; color: var(--rosa);
-  padding-bottom: 12px; border-bottom: 1px solid var(--linje); margin-bottom: 22px;
+/* ===== TABS ===== */
+.tabs { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+.tab-btn {
+  padding: 12px 26px; background: transparent; border: 1px solid var(--border);
+  border-radius: 5px; color: var(--text); font-family: 'Red Hat Mono', monospace;
+  font-size: 13px; font-weight: 600; cursor: pointer; text-transform: uppercase;
+  letter-spacing: 2px; transition: all .2s;
 }
-h2 .rakning { color: var(--dis); margin-left: 10px; font-weight: 300; }
+.tab-btn:hover { border-color: var(--pink); }
+.tab-btn.active { background: var(--pink); border-color: var(--pink); color: #000; }
+.tab-badge { font-size: 11px; opacity: .65; margin-left: 6px; }
 
-/* ---- kpi ---- */
-.kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; }
-.kpi div { background: var(--plum-kort); border-radius: 12px; padding: 20px 18px; }
-.kpi .tal {
-  font-family: 'Red Hat Mono', monospace; font-weight: 300;
-  font-size: 32px; line-height: 1.1; letter-spacing: -.01em;
+/* ===== SEKTION ===== */
+.sektion { margin-bottom: 40px; }
+.sektion-rubrik {
+  font-family: 'Red Hat Mono', monospace; font-size: 10px; color: var(--muted);
+  margin-bottom: 14px; text-transform: uppercase; letter-spacing: .5px;
+  padding-bottom: 10px; border-bottom: 1px solid var(--border);
 }
+.sektion-rubrik b { color: var(--pink); font-weight: 600; }
+
+/* ===== KPI ===== */
+.kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 40px; }
+.kpi > div { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 16px 18px; }
+.kpi .tal { font-family: 'Red Hat Mono', monospace; font-size: 26px; font-weight: 300; line-height: 1.15; }
 .kpi .etikett {
-  font-family: 'Red Hat Mono', monospace; font-size: 10px; text-transform: uppercase;
-  letter-spacing: .15em; color: var(--dis); margin-top: 8px;
+  font-family: 'Red Hat Mono', monospace; font-size: 10px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .5px; margin-top: 8px;
 }
 
-/* ---- kort ---- */
+/* ===== KORT ===== */
+.lista { display: flex; flex-direction: column; gap: 12px; }
 .kort {
-  background: var(--plum-kort); border-radius: 12px; padding: 20px 22px;
-  margin-bottom: 10px; border-left: 3px solid transparent;
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-left: 3px solid var(--muted); border-radius: 6px; padding: 18px;
+  transition: border-color .18s;
 }
-.kort.niva-rod { border-left-color: var(--rod); }
-.kort.niva-gul { border-left-color: var(--gul); }
+.kort:hover { border-color: var(--pink); }
+.kort.niva-rod  { border-left-color: var(--rod); }
+.kort.niva-gul  { border-left-color: var(--gul); }
 .kort.niva-gron { border-left-color: var(--gron); }
-.kort.niva-bla { border-left-color: var(--bla); }
+.kort.niva-bla  { border-left-color: var(--bla); }
 .kort-topp { display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; justify-content: space-between; }
-.kort h3 { font-size: 16px; font-weight: 500; line-height: 1.35; }
+.kort h3 { font-size: 15px; font-weight: 500; line-height: 1.35; }
 .meta {
-  font-family: 'Red Hat Mono', monospace; font-size: 11px; letter-spacing: .07em;
-  color: var(--dis); margin-top: 7px;
+  font-family: 'Red Hat Mono', monospace; font-size: 11px; letter-spacing: .3px;
+  color: var(--muted); margin-top: 8px; line-height: 1.7;
 }
-.meta b { color: rgba(255,255,255,.85); font-weight: 400; }
-.notering { color: var(--dis); font-size: 13.5px; margin-top: 12px; }
+.meta b { color: var(--text); font-weight: 400; }
+.notering { color: var(--muted-text); font-size: 13px; margin-top: 12px; }
+.notering b { color: var(--gul); }
 
-/* ---- badge ---- */
+/* ===== BADGE ===== */
 .badge {
-  font-family: 'Red Hat Mono', monospace; font-size: 10px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: .12em;
-  padding: 4px 11px; border-radius: 100px; white-space: nowrap;
+  font-family: 'Red Hat Mono', monospace; font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .5px; padding: 3px 9px;
+  border-radius: 20px; border: 1px solid var(--border); white-space: nowrap;
 }
-.b-gron { background: rgba(93,202,138,.18); color: var(--gron); }
-.b-gul  { background: rgba(240,160,80,.18);  color: var(--gul); }
-.b-rod  { background: rgba(240,112,112,.2);  color: var(--rod); }
-.b-bla  { background: rgba(112,160,240,.18); color: var(--bla); }
-.b-grå  { background: rgba(255,255,255,.1);  color: var(--dis); }
+.b-gron { border-color: var(--gron); color: var(--gron); background: rgba(93,202,138,.12); }
+.b-gul  { border-color: var(--gul);  color: var(--gul);  background: rgba(240,160,80,.12); }
+.b-rod  { border-color: var(--rod);  color: var(--rod);  background: rgba(240,112,112,.12); }
+.b-bla  { border-color: var(--bla);  color: var(--bla);  background: rgba(112,160,240,.12); }
+.b-grå  { color: var(--muted); }
 
-/* ---- rättighetsrutor för modellreleaser ---- */
-.ratt { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 15px; }
-.ratt div { background: rgba(0,0,0,.16); border-radius: 8px; padding: 12px 14px; }
+/* ===== RÄTTIGHETSRUTOR ===== */
+.ratt { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
+.ratt > div { background: var(--bg-primary); border: 1px solid var(--border); border-radius: 5px; padding: 12px 14px; }
 .ratt .r-etikett {
   font-family: 'Red Hat Mono', monospace; font-size: 9.5px; text-transform: uppercase;
-  letter-spacing: .16em; color: var(--rosa); margin-bottom: 5px;
+  letter-spacing: .5px; color: var(--pink); margin-bottom: 6px;
 }
-.ratt .r-varde { font-size: 14px; font-weight: 500; line-height: 1.35; }
+.ratt .r-varde { font-size: 13.5px; font-weight: 500; line-height: 1.4; }
 
-/* ---- åtgärdslista ---- */
+/* ===== ÅTGÄRD ===== */
 .atgard {
-  background: rgba(240,112,112,.12); border: 1px solid rgba(240,112,112,.3);
-  border-radius: 12px; padding: 18px 22px; margin-bottom: 10px;
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-left: 3px solid var(--rod); border-radius: 6px; padding: 16px 18px;
 }
-.atgard.mild { background: rgba(240,160,80,.1); border-color: rgba(240,160,80,.28); }
-.atgard h3 { font-size: 15px; font-weight: 500; }
-.atgard p { color: rgba(255,255,255,.8); font-size: 13.5px; margin-top: 7px; }
+.atgard.mild { border-left-color: var(--gul); }
+.atgard h3 { font-size: 14px; font-weight: 500; }
+.atgard p { color: var(--muted-text); font-size: 13px; margin-top: 6px; }
 
-/* ---- länkar ---- */
+/* ===== LÄNKAR ===== */
 .lankar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .lankar a {
-  font-family: 'Red Hat Mono', monospace; font-size: 10px; text-transform: uppercase;
-  letter-spacing: .13em; text-decoration: none;
-  color: var(--dis); border: 1px solid var(--linje);
-  border-radius: 100px; padding: 6px 14px; transition: .16s;
+  font-family: 'Red Hat Mono', monospace; font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .5px; text-decoration: none;
+  color: var(--muted); border: 1px solid var(--border); border-radius: 20px;
+  padding: 5px 12px; transition: all .15s;
 }
-.lankar a:hover { color: var(--plum-djup); background: var(--rosa); border-color: var(--rosa); }
+.lankar a:hover { color: var(--pink); border-color: var(--pink); }
 
-.tom { color: var(--dis); font-style: italic; padding: 6px 0; }
+.tom { color: var(--muted); font-style: italic; padding: 8px 0; }
 footer {
-  margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--linje);
-  color: var(--dis); font-size: 12px;
+  margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border);
+  color: var(--muted); font-size: 12px;
 }
 footer code { font-family: 'Red Hat Mono', monospace; font-size: 11px; }
+
+@media (max-width: 640px) {
+  .header-main { font-size: 22px; letter-spacing: 2px; }
+  .tab-btn { padding: 10px 16px; font-size: 11px; letter-spacing: 1px; }
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="app">
 
-<header>
-  <img src="logo-vit.png" alt="Shiny Happy People">
-  <h1>Översikt</h1>
-  <p class="underrubrik">
-    Leasing, försäkringar och modellreleaser för Concept Agency (559099-6285)
-    och Ad Agency (556787-8722).
-  </p>
-  <div class="filter" id="filter">
-    <button data-bolag="alla" aria-pressed="true">Alla</button>
-    <button data-bolag="concept" aria-pressed="false">Concept Agency</button>
-    <button data-bolag="ad" aria-pressed="false">Ad Agency</button>
+<div class="header">
+  <div class="header-top">
+    <div class="header-logo"><img src="logo-vit.png" alt="Shiny Happy People"></div>
+    <div class="header-user" id="byggd">__BYGGD__</div>
   </div>
-</header>
+  <div class="header-main">Översikt</div>
+  <div class="header-sub">Leasing, försäkringar och modellreleaser</div>
+</div>
 
-<section id="kpi-sektion"><div class="kpi" id="kpi"></div></section>
+<div class="tabs" id="tabs">
+  <button class="tab-btn active" data-bolag="concept">
+    Concept Agency <span class="tab-badge" id="badge-concept"></span>
+  </button>
+  <button class="tab-btn" data-bolag="ad">
+    Ad Agency <span class="tab-badge" id="badge-ad"></span>
+  </button>
+</div>
 
-<section>
-  <h2>Action required <span class="rakning" id="antal-atgard"></span></h2>
-  <div id="atgarder"></div>
-</section>
-
-<section>
-  <h2>Leasing <span class="rakning" id="antal-leasing"></span></h2>
-  <div id="leasing"></div>
-</section>
-
-<section>
-  <h2>Insurance <span class="rakning" id="antal-forsakring"></span></h2>
-  <div id="forsakringar"></div>
-</section>
-
-<section>
-  <h2>Model releases <span class="rakning" id="antal-release"></span></h2>
-  <div id="releaser"></div>
-</section>
-
-<section>
-  <h2>Missing releases</h2>
-  <div id="luckor"></div>
-</section>
-
-<section>
-  <h2>Other agreements &amp; subscriptions <span class="rakning" id="antal-ovriga"></span></h2>
-  <div id="ovriga"></div>
-</section>
+<div id="innehall"></div>
 
 <footer>
   Byggd __BYGGD__ från <code>dokument.json</code> och <code>modellreleaser.json</code>.
   Nedräkningar uppdateras i webbläsaren och är alltid aktuella.
-  Modellernas personnummer, e-post och telefon publiceras aldrig här, de finns bara
-  i det lokala registret.
+  Poster utan bolagstillhörighet (gemensamma, privata, ospecificerade) visas i båda flikarna.
+  Modellernas personnummer, e-post och telefon publiceras aldrig här.
 </footer>
 
 </div>
@@ -390,8 +376,12 @@ const gmail = t => t
 const drive = u => u
   ? `<a href="${esc(u)}" target="_blank" rel="noopener">Öppna i Drive</a>` : '';
 
-let aktivtBolag = 'alla';
-const passar = b => aktivtBolag === 'alla' || b === aktivtBolag || b === 'båda';
+let aktivtBolag = 'concept';
+
+// Poster utan eget bolag (gemensamma, privata, ospecificerade) hör hemma i båda
+// flikarna. Annars försvinner de helt när vyn bara har två bolag.
+const GEMENSAMMA = new Set(['båda', 'privat', '']);
+const passar = b => b === aktivtBolag || GEMENSAMMA.has(b);
 
 /* ---------------------------------------------------------- renderare */
 
@@ -514,8 +504,7 @@ function byggAtgarder(leasing, forsakringar, releaser) {
       ut.push({ akut: false, rubrik: d.namn,
         text: 'Avslutsvillkoren är inte verifierade mot avtalets särskilda villkor. Läs framsidan innan du utgår från något slutdatum.' });
     }
-    // En konflikt är alltid mer konkret än den generiska villkorsflaggan,
-    // så de dubbleras inte på samma avtal.
+    // En konflikt är alltid mer konkret än den generiska villkorsflaggan.
     if (d.konflikt) {
       ut.push({ akut: true, rubrik: d.namn, text: d.konflikt });
     } else if (d.villkor.niva === 'atgard' && d.status === 'aktiv') {
@@ -549,6 +538,14 @@ function byggAtgarder(leasing, forsakringar, releaser) {
 
 /* ---------------------------------------------------------- rendering */
 
+function sektion(titel, antal, innehall, tomText) {
+  return `
+  <div class="sektion">
+    <div class="sektion-rubrik">${esc(titel)} <b>${antal}</b></div>
+    <div class="lista">${innehall || `<p class="tom">${esc(tomText)}</p>`}</div>
+  </div>`;
+}
+
 function rendera() {
   const leasing = DATA.leasing.filter(d => passar(d.bolag));
   const forsakringar = DATA.forsakringar.filter(d => passar(d.bolag));
@@ -564,7 +561,7 @@ function rendera() {
 
   const atgarder = byggAtgarder(leasing, forsakringar, releaser);
 
-  document.getElementById('kpi').innerHTML = [
+  const kpi = [
     [manad.toLocaleString('sv-SE'), 'SEK/mån leasing exkl moms'],
     [aktivLeasing.length, 'Aktiva leasingavtal'],
     [forsakringar.length, 'Försäkringar'],
@@ -575,38 +572,45 @@ function rendera() {
     `<div><div class="tal">${esc(tal)}</div><div class="etikett">${esc(etikett)}</div></div>`
   ).join('');
 
-  const satt = (id, html, tomText) => {
-    document.getElementById(id).innerHTML = html || `<p class="tom">${tomText}</p>`;
-  };
-
-  satt('atgarder', atgarder.map(a =>
-    `<div class="atgard ${a.akut ? '' : 'mild'}">
-       <h3>${esc(a.rubrik)}</h3><p>${esc(a.text)}</p>
-     </div>`).join(''), 'Inget kräver åtgärd just nu.');
-
-  satt('leasing', leasing.map(kortLeasing).join(''), 'Inga leasingavtal för valt bolag.');
-  satt('forsakringar', forsakringar.map(kortForsakring).join(''), 'Inga försäkringar för valt bolag.');
-  satt('releaser', releaser.map(kortRelease).join(''), 'Inga modellreleaser för valt bolag.');
-  satt('ovriga', ovriga.map(kortOvrig).join(''), 'Inga övriga avtal för valt bolag.');
-  satt('luckor', DATA.luckor.map(kortLucka).join(''), 'Inga kända luckor.');
-
-  document.getElementById('antal-atgard').textContent = atgarder.length;
-  document.getElementById('antal-leasing').textContent = leasing.length;
-  document.getElementById('antal-forsakring').textContent = forsakringar.length;
-  document.getElementById('antal-release').textContent = releaser.length;
-  document.getElementById('antal-ovriga').textContent = ovriga.length;
+  document.getElementById('innehall').innerHTML =
+    `<div class="kpi">${kpi}</div>` +
+    sektion('Action required', atgarder.length,
+      atgarder.map(a => `<div class="atgard ${a.akut ? '' : 'mild'}">
+          <h3>${esc(a.rubrik)}</h3><p>${esc(a.text)}</p></div>`).join(''),
+      'Inget kräver åtgärd just nu.') +
+    sektion('Leasing', leasing.length, leasing.map(kortLeasing).join(''),
+      'Inga leasingavtal för det här bolaget.') +
+    sektion('Insurance', forsakringar.length, forsakringar.map(kortForsakring).join(''),
+      'Inga försäkringar för det här bolaget.') +
+    sektion('Model releases', releaser.length, releaser.map(kortRelease).join(''),
+      'Inga modellreleaser för det här bolaget.') +
+    sektion('Missing releases', DATA.luckor.length, DATA.luckor.map(kortLucka).join(''),
+      'Inga kända luckor.') +
+    sektion('Other agreements', ovriga.length, ovriga.map(kortOvrig).join(''),
+      'Inga övriga avtal för det här bolaget.');
 }
 
-document.getElementById('filter').addEventListener('click', e => {
+function antalFor(bolag) {
+  const t = b => b === bolag || GEMENSAMMA.has(b);
+  return DATA.leasing.filter(d => t(d.bolag)).length
+       + DATA.forsakringar.filter(d => t(d.bolag)).length
+       + DATA.releaser.filter(r => t(r.bolag)).length
+       + DATA.ovriga.filter(d => t(d.bolag)).length;
+}
+
+document.getElementById('tabs').addEventListener('click', e => {
   const knapp = e.target.closest('button');
   if (!knapp) return;
   aktivtBolag = knapp.dataset.bolag;
-  for (const b of document.querySelectorAll('#filter button')) {
-    b.setAttribute('aria-pressed', String(b === knapp));
+  for (const b of document.querySelectorAll('#tabs button')) {
+    b.classList.toggle('active', b === knapp);
   }
   rendera();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+document.getElementById('badge-concept').textContent = antalFor('concept');
+document.getElementById('badge-ad').textContent = antalFor('ad');
 rendera();
 </script>
 </body>
