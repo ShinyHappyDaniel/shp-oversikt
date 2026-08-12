@@ -28,6 +28,8 @@
   --bla:  #70A0F0;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   background: var(--bg-primary); color: var(--text);
   font-family: 'Red Hat Text', sans-serif; font-size: 15px; line-height: 1.6;
@@ -65,7 +67,7 @@ body {
 .tab-badge { font-size: 11px; opacity: .65; margin-left: 6px; }
 
 /* ===== SEKTION ===== */
-.sektion { margin-bottom: 40px; }
+.sektion { margin-bottom: 40px; scroll-margin-top: 24px; }
 .sektion-rubrik {
   font-family: 'Red Hat Mono', monospace; font-size: 12px; font-weight: 500;
   color: var(--muted); margin-bottom: 16px; text-transform: uppercase;
@@ -75,7 +77,15 @@ body {
 
 /* ===== KPI ===== */
 .kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 40px; }
-.kpi > div { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 6px; padding: 16px 18px; }
+.kpi > a {
+  display: block; text-decoration: none; color: inherit; cursor: pointer;
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: 6px; padding: 16px 18px;
+  transition: border-color .15s, background .15s, transform .15s;
+}
+.kpi > a:hover { border-color: var(--pink); background: #2A2427; transform: translateY(-2px); }
+.kpi > a:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+.kpi > a:hover .etikett { color: var(--pink); }
 .kpi .tal { font-family: 'Red Hat Mono', monospace; font-size: 28px; font-weight: 400; line-height: 1.15; }
 .kpi .etikett {
   font-family: 'Red Hat Mono', monospace; font-size: 11.5px; color: var(--muted);
@@ -391,9 +401,9 @@ function byggAtgarder(leasing, forsakringar, releaser) {
 
 /* ---------------------------------------------------------- rendering */
 
-function sektion(titel, antal, innehall, tomText) {
+function sektion(id, titel, antal, innehall, tomText) {
   return `
-  <div class="sektion">
+  <div class="sektion" id="sek-${id}">
     <div class="sektion-rubrik">${esc(titel)} <b>${antal}</b></div>
     <div class="lista">${innehall || `<p class="tom">${esc(tomText)}</p>`}</div>
   </div>`;
@@ -415,31 +425,31 @@ function rendera() {
   const atgarder = byggAtgarder(leasing, forsakringar, releaser);
 
   const kpi = [
-    [manad.toLocaleString('sv-SE'), 'SEK/mån leasing exkl moms'],
-    [aktivLeasing.length, 'Aktiva leasingavtal'],
-    [forsakringar.length, 'Försäkringar'],
-    [releaser.filter(r => r.signerat).length, 'Signerade releaser'],
-    [releaserUtgar, 'Releaser ut inom 1 år'],
-    [atgarder.length, 'Punkter att agera på'],
-  ].map(([tal, etikett]) =>
-    `<div><div class="tal">${esc(tal)}</div><div class="etikett">${esc(etikett)}</div></div>`
+    [manad.toLocaleString('sv-SE'), 'SEK/mån leasing exkl moms', 'leasing'],
+    [aktivLeasing.length, 'Aktiva leasingavtal', 'leasing'],
+    [forsakringar.length, 'Försäkringar', 'insurance'],
+    [releaser.filter(r => r.signerat).length, 'Signerade releaser', 'releases'],
+    [releaserUtgar, 'Releaser ut inom 1 år', 'releases'],
+    [atgarder.length, 'Punkter att agera på', 'action'],
+  ].map(([tal, etikett, mal]) =>
+    `<a href="#sek-${mal}"><div class="tal">${esc(tal)}</div><div class="etikett">${esc(etikett)}</div></a>`
   ).join('');
 
   document.getElementById('innehall').innerHTML =
     `<div class="kpi">${kpi}</div>` +
-    sektion('Action required', atgarder.length,
+    sektion('action', 'Action required', atgarder.length,
       atgarder.map(a => `<div class="atgard ${a.akut ? '' : 'mild'}">
           <h3>${esc(a.rubrik)}</h3><p>${esc(a.text)}</p></div>`).join(''),
       'Inget kräver åtgärd just nu.') +
-    sektion('Leasing', leasing.length, leasing.map(kortLeasing).join(''),
+    sektion('leasing', 'Leasing', leasing.length, leasing.map(kortLeasing).join(''),
       'Inga leasingavtal för det här bolaget.') +
-    sektion('Insurance', forsakringar.length, forsakringar.map(kortForsakring).join(''),
+    sektion('insurance', 'Insurance', forsakringar.length, forsakringar.map(kortForsakring).join(''),
       'Inga försäkringar för det här bolaget.') +
-    sektion('Model releases', releaser.length, releaser.map(kortRelease).join(''),
+    sektion('releases', 'Model releases', releaser.length, releaser.map(kortRelease).join(''),
       'Inga modellreleaser för det här bolaget.') +
-    sektion('Missing releases', DATA.luckor.length, DATA.luckor.map(kortLucka).join(''),
+    sektion('missing', 'Missing releases', DATA.luckor.length, DATA.luckor.map(kortLucka).join(''),
       'Inga kända luckor.') +
-    sektion('Other agreements', ovriga.length, ovriga.map(kortOvrig).join(''),
+    sektion('other', 'Other agreements', ovriga.length, ovriga.map(kortOvrig).join(''),
       'Inga övriga avtal för det här bolaget.');
 }
 
