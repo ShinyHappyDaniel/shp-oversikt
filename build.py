@@ -69,7 +69,10 @@ def bedom_villkor(notering: str) -> dict:
         return {"niva": "atgard", "etikett": "180-dagarsfrist gäller"}
     if "Avtalet avslutas per slutdatum" in notering:
         return {"niva": "ok", "etikett": "Avslutas per slutdatum"}
-    if "lösa ut" in notering or "inlösen" in notering.lower() or "Löst ut" in notering:
+    if "Löst ut" in notering or "Inlöst" in notering:
+        # Redan inlöst. Datid, inget kvar att göra.
+        return {"niva": "ok", "etikett": "Inlöst och avslutat"}
+    if "lösa ut" in notering or "inlösen" in notering.lower():
         return {"niva": "atgard", "etikett": "Inlösen pågår"}
     return {"niva": "overifierat", "etikett": "Villkor ej granskade"}
 
