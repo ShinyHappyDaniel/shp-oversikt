@@ -69,6 +69,10 @@ def bedom_villkor(notering: str) -> dict:
         return {"niva": "atgard", "etikett": "180-dagarsfrist gäller"}
     if "Avtalet avslutas per slutdatum" in notering:
         return {"niva": "ok", "etikett": "Avslutas per slutdatum"}
+    if "VAL KRÄVS" in notering:
+        # Ikano A3: ingen frist alls, men passivitet ger automatisk förlängning
+        # på uthyrarens villkor. Åtgärd krävs, bara utan ett datum att räkna mot.
+        return {"niva": "atgard", "etikett": "Val krävs vid hyrestidens slut"}
     if "Löst ut" in notering or "Inlöst" in notering:
         # Redan inlöst. Datid, inget kvar att göra.
         return {"niva": "ok", "etikett": "Inlöst och avslutat"}
@@ -525,7 +529,7 @@ function byggAtgarder(leasing, forsakringar, releaser) {
     if (d.konflikt) {
       ut.push({ akut: true, rubrik: d.namn, text: d.konflikt });
     } else if (d.villkor.niva === 'atgard' && d.status === 'aktiv') {
-      ut.push({ akut: false, rubrik: d.namn, text: d.villkor.etikett + '. Kontrollera fristen i god tid.' });
+      ut.push({ akut: false, rubrik: d.namn, text: d.villkor.etikett + '. Kontrollera villkoret i god tid före slutdatum.' });
     }
   }
 
