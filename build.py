@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Bygger den publika SHP-översikten till index.html.
 
-Läser dokument.json och modellreleaser.json i FILES/Shiny Admin/ och skriver en
-fristående HTML-sida. Nedräkningar räknas ut i webbläsaren, inte här, så sidan
+Läser dokument.json och modellreleaser.json i AGENTER/ASSISTENT/FILES/Shiny Admin/
+och skriver en fristående HTML-sida. Nedräkningar räknas ut i webbläsaren, inte här, så sidan
 visar rätt antal dagar även långt efter bygget.
 
 INTEGRITET: sidan publiceras publikt. Modellernas personnummer, e-post, telefon
@@ -17,7 +17,8 @@ from html import escape
 from pathlib import Path
 
 ROT = Path(__file__).resolve().parent
-ADMIN = ROT.parent.parent / "FILES" / "Shiny Admin"
+# Registren bor i ASSISTENT-agentens FILES, repot ligger i PROJEKT/SHP/.
+ADMIN = ROT.parents[2] / "AGENTER" / "ASSISTENT" / "FILES" / "Shiny Admin"
 DOKUMENT = ADMIN / "dokument.json"
 RELEASER = ADMIN / "modellreleaser.json"
 UT = ROT / "index.html"
